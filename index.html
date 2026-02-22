@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>FF14 スキルエディタ開発中</title>
+    <style>
+        body { font-family: sans-serif; background: #222; color: #fff; padding: 20px; }
+        .tab-menu { margin-bottom: 20px; }
+        .tab-button { padding: 10px 20px; cursor: pointer; background: #444; color: #fff; border: none; margin-right: 5px; }
+        .tab-button.active { background: #007acc; }
+        
+        .timeline { display: table; width: 100%; border-collapse: collapse; background: #333; }
+        .row { display: table-row; border-bottom: 1px solid #444; }
+        .cell { display: table-cell; padding: 10px; border: 1px solid #555; vertical-align: middle; }
+        
+        /* アイコンのスタイル */
+        .skill-icon { width: 32px; height: 32px; vertical-align: middle; margin-right: 10px; border-radius: 4px; }
+        
+        /* シナジー縦ライン */
+        .synergy-line { border-left: 5px solid #ff4da6; padding-left: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="tab-menu">
+        <button class="tab-button active">スキル回し</button>
+        <button class="tab-button">コンテンツTL（敵攻撃）</button>
+    </div>
+
+    <div class="timeline">
+        <div class="row" style="background: #444; font-weight: bold;">
+            <div class="cell">秒数</div>
+            <div class="cell">スキル (GCD)</div>
+            <div class="cell">アビリティ</div>
+            <div class="cell">ゲージ</div>
+            <div class="cell">メモ</div>
+        </div>
+
+        <div class="row">
+            <div class="cell">0.0</div>
+            <div class="cell synergy-line">
+                <img src="https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/88/88f21950e30026e63283f3e18a937a00632b6e51.png" class="skill-icon">
+                エアアンカー
+            </div>
+            <div class="cell">薬</div>
+            <div class="cell">B: 20</div>
+            <div class="cell"><input type="text" placeholder="メモを入力..." style="background:none; color:white; border:1px solid #555;"></div>
+        </div>
+
+        <div class="row">
+            <div class="cell">2.5</div>
+            <div class="cell">
+                <img src="https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/0a/0a7b68637728e8f810141e6e00171a81f3b890a2.png" class="skill-icon">
+                ドリル
+            </div>
+            <div class="cell">ガウス / リコ</div>
+            <div class="cell">B: 20</div>
+            <div class="cell"></div>
+        </div>
+    </div>
+
+</body>
+</html>
