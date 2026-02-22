@@ -2,104 +2,17 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>FF14 スキルエディタ開発中</title>
-    <style>
-        body { font-family: sans-serif; background: #222; color: #fff; padding: 20px; }
-        .tab-menu { margin-bottom: 20px; }
-        .tab-button { padding: 10px 20px; cursor: pointer; background: #444; color: #fff; border: none; margin-right: 5px; }
-        .tab-button.active { background: #007acc; }
-        
-        .timeline { display: table; width: 100%; border-collapse: collapse; background: #333; }
-        .row { display: table-row; border-bottom: 1px solid #444; }
-        .cell { display: table-cell; padding: 10px; border: 1px solid #555; vertical-align: middle; }
-        
-        /* アイコンのスタイル */
-        .skill-icon { width: 32px; height: 32px; vertical-align: middle; margin-right: 10px; border-radius: 4px; }
-        
-        /* シナジー縦ライン */
-        .synergy-line { border-left: 5px solid #ff4da6; padding-left: 15px; }
-
-        .skill-palette {
-    display: flex; /* 横に並べる */
-    gap: 10px;    /* アイコン同士の間隔 */
-}
-
-.skill-container {
-    text-align: center; /* 文字を真ん中に */
-    border: 1px solid #555; /* 枠線 */
-    padding: 5px;
-    background: #222; /* 背景を暗くしてFF14っぽく */
-    color: white;
-}
-
-.skill-icon {
-    width: 48px;  /* アイコンのサイズ */
-    height: 48px;
-}
-
-.skill-info {
-    font-size: 10px; /* 文字を小さく */
-    display: flex;
-    flex-direction: column; /* リキャとチャージを縦に並べる */
-}
-    </style>
+    <title>FF14 ツール</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="tab-menu">
-        <button class="tab-button active">スキル回し</button>
-        <button class="tab-button">コンテンツTL（敵攻撃）</button>
-    </div>
-
-    <div class="timeline">
-        <div class="row" style="background: #444; font-weight: bold;">
-            <div class="cell">秒数</div>
-            <div class="cell">スキル (GCD)</div>
-            <div class="cell">アビリティ</div>
-            <div class="cell">ゲージ</div>
-            <div class="cell">メモ</div>
+    <div id="timeline">
         </div>
 
-        <div class="row">
-            <div class="cell">0.0</div>
-            <div class="cell synergy-line">
-                <img src="img/42_MCH/Air_Anchor.png" class="skill-icon">
-                エアアンカー
-            </div>
-            <div class="cell">薬</div>
-            <div class="cell">B: 20</div>
-            <div class="cell"><input type="text" placeholder="メモを入力..." style="background:none; color:white; border:1px solid #555;"></div>
+    <div id="skill-palette">
         </div>
 
-        <div class="row">
-            <div class="cell">2.5</div>
-            <div class="cell">
-                <img src="img/42_MCH/Drill.png" class="skill-icon">
-                ドリル
-            </div>
-            <div class="cell">ガウス / リコ</div>
-            <div class="cell">B: 20</div>
-            <div class="cell"></div>
-        </div>
-    </div>
-
-<div class="skill-palette">
-    <div class="skill-container">
-        <img src="img/42_MCH/Air_Anchor.png" class="skill-icon">
-        <div class="skill-info">
-            <span class="recast">40s</span>
-            <span class="charge">MAX:1</span>
-        </div>
-    </div>
-
-    <div class="skill-container">
-        <img src="img/42_MCH/Drill.png" class="skill-icon">
-        <div class="skill-info">
-            <span class="recast">20s</span>
-            <span class="charge">MAX:1</span>
-        </div>
-    </div>
-</div>
-
+    <script src="js/skills.js"></script>
 </body>
 </html>
