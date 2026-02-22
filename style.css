@@ -1,35 +1,251 @@
+/* ===================================================
+   全体の基本設定（土台）
+   =================================================== */
+html, body {
+    height: 100%;       /* 画面の高さを100%使い切る */
+    margin: 0;          /* 外側の余白をゼロにする */
+    padding: 0;         /* 内側の余白をゼロにする */
+    overflow: hidden;   /* 画面全体がスクロールするのを禁止（各パーツ内でスクロールさせるため） */
+    background-color: #1a1a1a; /* サイト全体の背景色（暗いグレー） */
+    color: #ffffff;    /* 全体の文字色（白） */
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
 body {
-    background-color: #1a1a1a;
-    color: white;
-    font-family: sans-serif;
+    display: flex;         /* パーツを並べる魔法の合言葉 */
+    flex-direction: column; /* パーツを「縦」に並べる（上から順にバーが重なる） */
 }
 
-#skill-palette {
+/* ===================================================
+   1. メイン機能切り替え（一番上：スキル回し/敵TLなど）
+   =================================================== */
+#main-nav {
+    height: 45px;             /* ★一番上のバーの高さ */
+    background-color: #000000; /* バーの色（真っ黒） */
+    display: flex;            /* ボタンを横に並べる */
+    align-items: center;      /* ボタンを上下の中央に配置 */
+    padding: 0 10px;
+    border-bottom: 2px solid #333; /* 下側の境界線 */
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: #888;              /* 選ばれていないボタンの色 */
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-btn.active {
+    color: #ffffff;           /* 選ばれているボタンの文字色 */
+    font-weight: bold;
+    border-bottom: 2px solid #ffd700; /* 足元の金色の線 */
+}
+
+/* ===================================================
+   2. ジョブ切り替え ＆ 保存スロット（二段目）
+   =================================================== */
+#job-tabs {
+    height: 38px;             /* ★二段目のバーの高さ */
+    background-color: #252525; /* バーの色 */
     display: flex;
-    flex-wrap: wrap; /* 画面端まで行ったら折り返す */
-    gap: 10px;
-    padding: 20px;
+    align-items: center;
+    padding: 0 15px;
+    gap: 8px;
+    border-bottom: 1px solid #444;
 }
 
-.skill-container {
-    background: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 4px;
-    padding: 5px;
-    width: 60px;
-    text-align: center;
+.job-btn {
+    background: #333;
+    border: 1px solid #555;
+    color: #aaa;
+    padding: 2px 12px;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    font-size: 12px;
 }
 
-.skill-icon {
-    width: 40px;
-    height: 40px;
-    display: block;
-    margin: 0 auto 5px;
+.job-btn.active {
+    background: #444;
+    color: #00ffff;           /* ジョブ選択時の文字色（水色） */
 }
 
-.skill-info {
+/* --- 保存スロットエリア（ジョブタブの右端） --- */
+#save-slots {
+    margin-left: auto;        /* ★これで右端に寄せる */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#save-slots span {
+    font-size: 11px;
+    color: #888;              /* 「保存:」という文字の色 */
+    margin-right: 5px;
+}
+
+.slot-btn {
+    background: #444;         /* ボタンの背景色 */
+    border: 1px solid #666;   /* ボタンの枠線 */
+    color: white;
+    padding: 2px 8px;         /* ボタンの大きさ */
     font-size: 10px;
+    cursor: pointer;
+    border-radius: 3px;
 }
 
-.recast { color: #ffd700; display: block; }
-.charge { color: #00ffff; }
+.slot-btn:hover {
+    background: #666;         /* マウスを乗せたとき */
+    border-color: #ffd700;    /* 枠を金色に */
+}
+
+/* ===================================================
+   3. メインコンテナ（左右2分割エリア）
+   =================================================== */
+#main-container {
+    display: flex;            /* 左（TL）と右（操作パネル）を横に並べる */
+    flex: 1;                  /* 画面の残り高さを全部使う */
+    overflow: hidden;
+}
+
+/* ===================================================
+   4. 左側：タイムライン表示エリア ＆ 操作ボタン
+   =================================================== */
+#left-timeline {
+    flex: 2;                  /* ★右側との幅の比率（2:1） */
+    background-color: #111111;
+    border-right: 2px solid #444;
+    display: flex;
+    flex-direction: column;   /* 中身（TLと操作バー）を縦に並べる */
+    padding: 15px;
+}
+
+/* タイムラインのアイコンが並ぶ場所 */
+#timeline-content {
+    flex: 1;                  /* 操作バー以外の高さを全部使う */
+    overflow-y: auto;         /* 縦にはみ出たらスクロール */
+    display: flex;
+    flex-wrap: wrap;          /* 横に並べて端で折り返す */
+    align-content: flex-start;
+    gap: 5px;
+    background: #000;         /* タイムラインの背景を少し黒く */
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* タイムライン下の操作バー（全削除・秒数） */
+#timeline-controls {
+    height: 50px;             /* ★操作バーの高さ */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+}
+
+/* 全削除ボタン */
+#clear-all {
+    background-color: #600;   /* 背景色（暗い赤） */
+    color: white;
+    border: 1px solid #a00;
+    padding: 6px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 秒数調整エリア */
+#time-adjuster {
+    display: flex;
+    align-items: center;
+    background: #000;         /* 数値の背景を黒に */
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid #555;
+}
+
+#current-seconds {
+    min-width: 70px;          /* 幅を固定して数字が動かないようにする */
+    text-align: center;
+    font-weight: bold;
+    color: #0f0;              /* 数字の色（緑） */
+    font-size: 14px;
+}
+
+.adj-btn {
+    background: none;
+    border: none;
+    color: #ffd700;           /* 矢印の色（金） */
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* ===================================================
+   5. 右側：上下分割エリア（ステータス ＆ パレット）
+   =================================================== */
+#right-panels {
+    flex: 1;                  /* ★右側エリア全体の幅 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 右上：ゲージ・計算 */
+#top-status {
+    flex: 1;                  /* ★右側の「上半分」の高さ */
+    background-color: #222222;
+    border-bottom: 2px solid #444;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+/* 右下：スキル一覧（パレット） */
+#bottom-palette {
+    flex: 1;                  /* ★右側の「下半分」の高さ */
+    background-color: #2a2a2a;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+/* ===================================================
+   6. 【場所別】アイコンのサイズ・見た目
+   =================================================== */
+
+/* スキル共通の箱 */
+.skill-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* --- パレット（右下）のサイズ：押しやすく大きく --- */
+#bottom-palette .skill-container {
+    width: 60px;              /* 箱の幅 */
+    padding: 5px;
+}
+#bottom-palette .skill-icon {
+    width: 44px;              /* アイコンサイズ */
+    height: 44px;
+}
+
+/* --- タイムライン（左）のサイズ：並べやすく小さく --- */
+#left-timeline .skill-container {
+    width: 42px;              /* 箱の幅 */
+    padding: 3px;
+    background: #222;
+}
+#left-timeline .skill-icon {
+    width: 34px;              /* アイコンサイズ */
+    height: 34px;
+}
+
+/* 文字サイズ */
+.recast { font-size: 10px; color: #ffd700; }
+.charge { font-size: 9px; color: #00ffff; }
+#left-timeline .charge { display: none; } /* TLではチャージ非表示 */

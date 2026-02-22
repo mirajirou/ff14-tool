@@ -2,17 +2,70 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>FF14 ツール</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF14 Skill Simulator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="timeline">
-        </div>
+    <nav id="main-nav">
+        <button class="nav-btn active">スキル回し構築</button>
+        <button class="nav-btn">敵タイムライン編集</button>
+        <button class="nav-btn">設定</button>
+    </nav>
 
-    <div id="skill-palette">
+    <nav id="job-tabs">
+        <button class="job-btn active">機工士</button>
+        <button class="job-btn">ヴァイパー</button>
+
+        <div id="save-slots">
+            <span>保存:</span>
+            <button class="slot-btn">1</button>
+            <button class="slot-btn">2</button>
+            <button class="slot-btn">3</button>
+            <button class="slot-btn">4</button>
+            <button class="slot-btn">5</button>
         </div>
+    </nav>
+
+    <main id="main-container">
+        
+        <section id="left-timeline">
+            <h2 style="font-size: 14px; margin: 0 0 10px 0; color: #888;">Timeline</h2>
+            
+            <div id="timeline-content">
+                </div>
+
+            <div id="timeline-controls">
+                <button id="clear-all">全削除</button>
+                
+                <div id="time-adjuster">
+                    <button class="adj-btn">《</button>
+                    <span id="current-seconds">0.00 秒</span>
+                    <button class="adj-btn">》</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="right-panels">
+            
+            <div id="top-status">
+                <h3 style="font-size: 14px; margin: 0 0 10px 0; color: #888;">Status / Gauge</h3>
+                <div id="gauge-area">
+                    </div>
+            </div>
+
+            <div id="bottom-palette">
+                <h3 style="font-size: 14px; margin: 0 0 10px 0; color: #888;">Skill Palette</h3>
+                
+                <div id="skill-palette">
+                    </div>
+            </div>
+
+        </section>
+    </main>
 
     <script src="js/skills.js"></script>
+
 </body>
 </html>
